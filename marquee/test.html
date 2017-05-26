@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    body {
+        padding: 100px;
+    }
+
+    /*
+    
+    #logo {
+        position: relative;
+    }
+    
+    #logo svg {
+        width: 3px;
+        height: auto;
+    }
+    
+    #logo polygon {
+        fill: #ff9d00;
+    }
+    
+    #logo .A,
+    #logo .M,
+    #logo .N {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    
+    #logo .M {
+        left: 40px;
+    }
+    
+    #logo .A.repeat {
+        left: 80px;
+    }
+    
+    #logo .N {
+        left: 120px;
+    }
+   
+    
+    #logo .A .left {
+        transform: rotateZ(25deg);
+    }
+    
+    #logo .A .middle {
+        transform: scaleX(0.75) rotateZ(90deg) translateY(3px);
+    }
+    
+    #logo .A .right {
+        transform: rotateZ(-25deg) translate(-5px, -2px);
+    }
+   
+    
+    #logo .M .middle_left {
+        transform: rotateZ(-30deg) translate(0, -5px);
+    }
+   */
+
+                polygon {
+                    /*fill: #ff9d00; changed from orange to white*/
+                    fill: #fff;
+                    transition: opacity .5s ease-out, transform .5s ease-out;
+                    opacity: 0;
+                }
+                
+                
+                /*A1*/
+                #A1 .left {
+                    transform: translate(12px, -22px);
+                    transition-delay: .1s;
+                }
+                #A1 .right {
+                    transform: translate(-12px, -22px);
+                    transition-delay: .2s;
+                }
+                #A1 .mid {
+                    transform: translate(-12px, 0);
+                    transition-delay: .3s;
+                }
+
+                /*M*/
+                #M .left {
+                     transform: translate(-4px, 22px);
+                    transition-delay: .4s;
+                }
+                #M .mid_left {
+                     transform: translate(-4px, -12px);
+                    transition-delay: .4s;
+                }
+                #M .mid_right {
+                     transform: translate(8px, -12px);
+                    transition-delay: .5s;
+                }
+                #M .right {
+                    transform: translate(4px, 22px);
+                    transition-delay: .6s;
+                }
+                /*A2*/
+                 #A2 .left {
+                    transform: translate(12px, -22px);
+                    transition-delay: .7s;
+                }
+                #A2 .right {
+                    transform: translate(-12px, -22px);
+                    transition-delay: .8s;
+                }
+                #A2 .mid {
+                    transform: translate(-12px, 0);
+                    transition-delay: .9s;
+                }
+                /*N*/
+                #N .left {
+                    transform: translate(4px, -22px);
+                    transition-delay: 1.1s;
+                }
+                #N .mid {
+                    transform: translate(4px, 12px);
+                    transition-delay: 1.2s;
+                }
+                
+                #N .right {
+                    transform: translate(4px, -22px);
+                    transition-delay: 1.3s;
+                }
+
+                /*styles after animation starts*/
+                .start polygon {
+                    opacity: 1;
+                }
+              .start #A1 polygon,
+              .start #A2 polygon,
+              .start #M polygon,
+              .start #N polygon {
+                    transform: translate(0px, 0px);
+                }
+               
+
+
+
+   #logo2 svg {
+   	background: #2e2e2e;
+
+   }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/flexslider.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.1/css/bootstrap-material-design.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.9/css/bootstrap-material-design.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/bootstrap-material-design.css">
+</head>
+
+<body>
+    <!-- old manual svg
+    <section id="logo">
+        
+        <div class="A">
+            <svg class=" left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+            <svg class="middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+            <svg class="right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+        </div>
+       
+        <div class="M">
+            <svg class="left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+            <svg class="middle_left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+            <svg class="middle_right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+            <svg class="right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+        </div>
+        <div class="A repeat">
+            <svg class=" left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+            <svg class="middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+            <svg class="right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+        </div>
+        <div class="N">
+            <svg class="left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+            <svg class="middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+            <svg class="right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.52 31">
+                <polygon points="2.52 31 0 25.67 0 0 2.51 5.33 2.52 31" />
+            </svg>
+        </div>
+    </section>
+    -->
+    <section id="logo2">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 94">
+            <defs>
+                
+            </defs>
+            <title>Logo</title>
+            <g id="A1">
+                <polygon class="mid" points="37.91 45.6 41.65 43.03 59.82 42.76 56.08 45.33 37.91 45.6" />
+                <polygon class="right" points="47.14 29.78 51.54 33.7 61.56 57.32 57.16 53.4 47.14 29.78" />
+                <polygon class="left" points="38.25 57.64 38.73 51.77 51.52 29.52 51.04 35.39 38.25 57.64" />
+            </g>
+            <g id="A2">
+                <polygon  class="mid" points="95.23 45.36 98.97 42.79 117.13 42.52 113.4 45.09 95.23 45.36" />
+                <polygon  class="right" points="104.45 29.55 108.85 33.47 118.88 57.09 114.48 53.16 104.45 29.55" />
+                <polygon  class="left" points="95.56 57.41 96.04 51.53 108.83 29.28 108.36 35.16 95.56 57.41" />
+            </g>
+            <g id="N">
+                <polygon  class="left" points="123.69 58.13 122.23 52.42 127.08 27.22 128.54 32.93 123.69 58.13" />
+                <polygon  class="right" points="137.82 57.55 136.36 51.84 141.21 26.64 142.67 32.35 137.82 57.55" />
+                <polygon  class="mid" points="141.17 55.26 136.36 51.85 123.73 29.51 128.54 32.92 141.17 55.26" />
+            </g>
+            <g id="M">
+                <polygon  class="mid_left" points="79.77 44.33 76.13 42.44 69.58 28.28 73.22 30.17 79.77 44.33" />
+                <polygon  class="mid_right" points="84.29 29.06 80.53 30.69 73.02 44.36 76.78 42.73 84.29 29.06" />
+                <polygon  class="right" points="79.35 26.79 83.07 31.36 89.23 56.28 85.51 51.71 79.35 26.79" />
+                <polygon  class="left" points="68.48 56.57 67.05 50.85 72.04 25.67 73.47 31.39 68.48 56.57" />
+            </g>
+        </svg>
+
+     
+    </section>
+	
+	
+   
+	
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.8.1/blazy.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.7.0/blazy.js" defer></script>
+ 
+	
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.8.1/blazy.min.js" defer></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.8.0/blazy.js" defer></script>
+ 
+    <script>
+   
+    console.log("before domloaded");      
+    window.addEventListener("DOMContentLoaded", function(){
+         //document.body.offSet;
+             var logo2 = document.querySelector("#logo2 svg");
+
+             console.log("after domloaded");
+            // its weired why don't transitions work without infinitesmall delay
+           // setTimeout(function() {
+                logo2.classList.add('start');
+            //}, 0);
+    });
+           
+        
+     
+           
+
+      
+   
+    </script>
+</body>
+
+</html>

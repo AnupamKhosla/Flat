@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    body {
+        margin: 10px;
+        font-family: 'Lato', sans-serif;
+    }
+    
+    .marquee {
+        width: 300px;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background: black;
+        color: rgb(202, 255, 195);
+    }
+    </style>
+</head>
+
+<body>
+    <section class="marquee">
+        Updates: Update (8 Mar 2016): Now plugin have new option: startVisible 
+    </section>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="plugin.js"></script>
+    <script>
+    $(function() {
+        $('.marquee').marquee({
+        	allowCss3Support: false,
+            duration: 5000,
+            startVisible: true,
+            duplicated: true
+        });
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/flexslider.min.css">
+    <style>
+    .container {
+        width: 70%;
+        max-width: 1100px;
+        margin: auto;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="flexslider">
+            <ul class="slides">
+                <li>
+                    <img src="http://flexslider.woothemes.com/images/kitchen_adventurer_cheesecake_brownie.jpg" />
+                </li>
+                <li>
+                    <img src="http://flexslider.woothemes.com/images/kitchen_adventurer_lemon.jpg" />
+                </li>
+                <li>
+                    <img src="http://flexslider.woothemes.com/images/kitchen_adventurer_donut.jpg" />
+                </li>
+                <li>
+                    <img src="http://flexslider.woothemes.com/images/kitchen_adventurer_caramel.jpg" />
+                </li>
+                <!-- items mirrored twice, total of 12 -->
+            </ul>
+        </div>
+    </div>
+    
+  <!-- jQuery -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/jquery.flexslider.min.js" defer></script>
+    <script>
+    (function() {
+
+        // store the slider in a local variable
+        var $window = $(window),
+            flexslider = {
+                vars: {}
+            };
+
+        // tiny helper function to add breakpoints
+        function getGridSize() {
+            return (window.innerWidth < 600) ? 2 :
+                (window.innerWidth < 900) ? 3 : 4;
+        }
+
+       
+        $window.load(function() {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                animationLoop: false,
+                itemWidth: 210,
+                itemMargin: 5,
+                minItems: getGridSize(), // use function to pull in initial value
+                maxItems: getGridSize() // use function to pull in initial value
+            });
+        });
+
+        // check grid size on resize event
+        $window.resize(function() {
+            var gridSize = getGridSize();
+
+            flexslider.vars.minItems = gridSize;
+            flexslider.vars.maxItems = gridSize;
+        });
+    }());
+    </script>
+</body>
+
+</html>
