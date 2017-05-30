@@ -144,6 +144,7 @@
                      },
                      start: function() {
                          //global.bLazy.revalidate();
+                         $(document).trigger("flexslider.loaded");
                      }
                  });
 
@@ -310,89 +311,256 @@
 
 
          //Language flag section module
-         !function(){
-            if($("body").hasClass("page-id-homepage")) {
+         ! function() {
+             if ($("body").hasClass("page-id-homepage")) {
 
-                var height = $(".lang-container").outerHeight();
+                 var active_top = $(".lang-container a.active").position().top;
+                 var active_left = $(".lang-container a.active").position().left;
+                 var scrollSpeed = 10;
 
-                if(userAgent.isTouchDevice()) {
-                    $(".lang-container .plus svg").click(function(){
-                        if($(".lang-container").hasClass("active")) {
-                            $(".lang-container").animate({
-                                height: height
-                            });
-                        }
-                        else {
-                            $(".lang-container").animate({
-                                height: $(".lang-container")[0].scrollHeight
-                            });
-                        }
-                        $(".lang-container").toggleClass("active");
-                    });
-                }
-                else {
-                    $(".lang-container .plus svg").mouseenter(function(){
-                         if($(".lang-container").hasClass("active")) {
-                            $(".lang-container").animate({
-                                height: height
-                            });
-                        }
-                        else {
-                            $(".lang-container").animate({
-                                height: $(".lang-container")[0].scrollHeight
-                            });
-                        }
-                        $(".lang-container").toggleClass("active");
-                    });
-                }
+                 $(document).on("flexslider.loaded", function() {
 
+                     if (userAgent.width() < 1200) {
+                         $(".lang-container .ellipse").css("transform", "translateX(" + active_left + "px" + ")");
+                     } else {
+                         $(".lang-container .ellipse").css("transform", "translateY(" + active_top + "px" + ")");
+                     }
 
-                $(".no-touch .lang-container .pop-container-L").each(function(){
-                    var $caption = $(this).data("caption");
-                    $("body").append(
-                        '<span class="link-description lang">' +
-                            '<span class="inverse-skew">' + 
-                                $caption +
-                            '</span>' +
-                        '</span>'
-                    );
-                })
+                     if (!userAgent.isTouchDevice()) {
 
-                $(".no-touch .lang-container .pop-container-L").hover(function(){
-                    var left = $(this).offset().left;
+                         $(".lang-container .pop-container-L").mouseenter(function() {
+                             if (userAgent.width() < 1200) {
+                                 var left = $(this).position().left + $(".lang-container .flags").scrollLeft();
+                                 $(".lang-container .ellipse").css("transform", "translateX(" + left + "px" + ")");
+                             } else {
+                                 var top = $(this).position().top + $(".lang-container .flags").scrollTop();
+                                 $(".lang-container .ellipse").css("transform", "translateY(" + top + "px" + ")");
+                             }
 
-                    var bottom = $("body").height() - $(this).offset().top;
-                    console.log(bottom, $(this).offset().top, $("body").height());
-                    var pos = $(this).index();
-                    var ele = $("body > .lang.link-description").eq(pos);
+                         });
 
-                    if(userAgent.width() < 768) {
-                        left = (userAgent.width() - ele.width() ) /2;  
-                        bottom = bottom + 25;                      
-                    }
+                         $(".lang-container .flags").mouseleave(function() {
 
-                    else if(userAgent.width() < 1200) {
-                        bottom = bottom + 20;
-                    }
-                    else {
-                        left = left + 85;
-                        bottom = bottom - 35;
-                    }
+                             if (userAgent.width() < 1200) {
+                                 active_left = $(".lang-container a.active").position().left + $(".lang-container .flags").scrollLeft();
+
+                                 $(".lang-container .ellipse").css("transform", "translateX(" + active_left + "px" + ")");
+                             } else {
+                                 active_top = $(".lang-container a.active").position().top + $(".lang-container .flags").scrollTop();
+                                 $(".lang-container .ellipse").css("transform", "translateY(" + active_top + "px" + ")");
+                             }
 
 
-                    ele.css({
-                        bottom: bottom + "px",
-                        left: (left-20) + "px" 
-                    })
-                    .addClass("active");
-                }, function(){
-                    var pos = $(this).index();
-                    $("body > .lang.link-description").eq(pos).removeClass("active");
-                });
+                         });
+
+                         $(".lang-grand .arrow-down > svg.arrow").on("mouseenter", function() {
+
+                             var remHeight = $(".lang-container .flags")[0].scrollHeight - $(".lang-container .flags").height();
+                             var scrollableHeight = remHeight - $(".lang-container .flags").scrollTop();
+
+                             $(".lang-container .flags").animate({
+                                 scrollTop: remHeight
+                             }, (scrollSpeed * scrollableHeight));
+
+
+                             $(".lang-container .ellipse").animate({
+                                 top: parseFloat($(".lang-container .ellipse").css("top")) - scrollableHeight + "px"
+                             }, scrollSpeed * scrollableHeight);
+
+                         });
+
+                         $(".lang-grand .arrow-up > svg.arrow").on("mouseenter", function() {
+
+                             var remHeight = $(".lang-container .flags")[0].scrollHeight - $(".lang-container .flags").height();
+                             var scrollableHeight = remHeight - $(".lang-container .flags").scrollTop();
+
+                             $(".lang-container .flags").animate({
+                                 scrollTop: 0
+                             }, scrollSpeed * $(".lang-container .flags").scrollTop());
+
+                             $(".lang-container .ellipse").animate({
+                                 top: parseFloat($(".lang-container .ellipse").css("top")) + $(".lang-container .flags").scrollTop() + "px"
+                             }, scrollSpeed * $(".lang-container .flags").scrollTop());
+
+                         });
+
+                         $(".lang-grand .arrow-right > svg.arrow").on("mouseenter", function() {
+
+                             var remLength = $(".lang-container .flags")[0].scrollWidth - $(".lang-container .flags").width();
+                             var scrollableLength = remLength - $(".lang-container .flags").scrollLeft();
+
+                             $(".lang-container .flags").animate({
+                                 scrollLeft: remLength
+                             }, scrollSpeed * scrollableLength);
+
+                             $(".lang-container .ellipse").animate({
+                                 left: parseFloat($(".lang-container .ellipse").css("left")) - scrollableLength + "px"
+                             }, scrollSpeed * scrollableLength);
+
+                         });
+
+                         $(".lang-grand .arrow-left > svg.arrow").on("mouseenter", function() {
+
+                             var remLength = $(".lang-container .flags")[0].scrollWidth - $(".lang-container .flags").width();
+                             var scrollableLength = remLength - $(".lang-container .flags").scrollLeft();
+
+                             $(".lang-container .flags").animate({
+                                 scrollLeft: 0
+                             }, scrollSpeed * $(".lang-container .flags").scrollLeft());
+
+                             $(".lang-container .ellipse").animate({
+                                 left: parseFloat($(".lang-container .ellipse").css("left")) + $(".lang-container .flags").scrollLeft() + "px"
+                             }, scrollSpeed * $(".lang-container .flags").scrollLeft());
+
+                         });
+
+                         $(".lang-grand svg.arrow").mouseleave(function() {
+                             $(".lang-container .flags").stop();
+                             $(".lang-container .ellipse").stop();
+                         });
+
+                     } else {
+
+                         var running = false;
+                         function stopAnimation() {
+                            $(".lang-container .flags").stop();
+                             $(".lang-container .ellipse").stop();
+                             running = false;
+                         }
+
+                         $(".lang-grand .arrow-down > svg.arrow").on("click", function() {
+
+                             if (running == false) {
+                                 var remHeight = $(".lang-container .flags")[0].scrollHeight - $(".lang-container .flags").height();
+                                 var scrollableHeight = remHeight - $(".lang-container .flags").scrollTop();
+
+                                 $(".lang-container .flags").animate({
+                                     scrollTop: remHeight
+                                 }, (scrollSpeed * scrollableHeight), stopAnimation);
+
+                                 $(".lang-container .ellipse").animate({
+                                     top: parseFloat($(".lang-container .ellipse").css("top")) - scrollableHeight + "px"
+                                 }, scrollSpeed * scrollableHeight);
+
+                                 running = true;
+                             } else {
+                                 stopAnimation();
+                             }
+                         });
+
+                         $(".lang-grand .arrow-up > svg.arrow").on("click", function() {
+
+                             if (running == false) {
+                                 var remHeight = $(".lang-container .flags")[0].scrollHeight - $(".lang-container .flags").height();
+                                 var scrollableHeight = remHeight - $(".lang-container .flags").scrollTop();
+
+                                 $(".lang-container .flags").animate({
+                                     scrollTop: 0
+                                 }, scrollSpeed * $(".lang-container .flags").scrollTop(), stopAnimation);
+
+                                 $(".lang-container .ellipse").animate({
+                                     top: parseFloat($(".lang-container .ellipse").css("top")) + $(".lang-container .flags").scrollTop() + "px"
+                                 }, scrollSpeed * $(".lang-container .flags").scrollTop());
+                                 running = true;                                 
+                             } else {
+                                stopAnimation();                             
+                             }
+                         });
+
+                         $(".lang-grand .arrow-right > svg.arrow").on("click", function() {
+
+                             if (running == false) {
+
+                                 var remLength = $(".lang-container .flags")[0].scrollWidth - $(".lang-container .flags").width();
+                                 var scrollableLength = remLength - $(".lang-container .flags").scrollLeft();
+
+                                 $(".lang-container .flags").animate({
+                                     scrollLeft: remLength
+                                 }, scrollSpeed * scrollableLength, stopAnimation);
+
+                                 $(".lang-container .ellipse").animate({
+                                     left: parseFloat($(".lang-container .ellipse").css("left")) - scrollableLength + "px"
+                                 }, scrollSpeed * scrollableLength);
+                                 running = true;
+
+                             } else {
+                                 stopAnimation();
+                             }
+
+                         });
+
+                         $(".lang-grand .arrow-left > svg.arrow").on("click", function() {
+
+                             if (running == false) {
+
+                                 var remLength = $(".lang-container .flags")[0].scrollWidth - $(".lang-container .flags").width();
+                                 var scrollableLength = remLength - $(".lang-container .flags").scrollLeft();
+
+                                 $(".lang-container .flags").animate({
+                                     scrollLeft: 0
+                                 }, scrollSpeed * $(".lang-container .flags").scrollLeft(), stopAnimation);
+
+                                 $(".lang-container .ellipse").animate({
+                                     left: parseFloat($(".lang-container .ellipse").css("left")) + $(".lang-container .flags").scrollLeft() + "px"
+                                 }, scrollSpeed * $(".lang-container .flags").scrollLeft());
+                                 running = true;
+
+                             } else {
+                                 stopAnimation();
+                             }
+
+                         });
+
+                     }
+
+
+                 });
+
+                 //-----------------             
+
+
+                 $(".no-touch .lang-container .pop-container-L").each(function() {
+                     var $caption = $(this).data("caption");
+                     $("body").append(
+                         '<span class="link-description lang">' +
+                         '<span class="inverse-skew">' +
+                         $caption +
+                         '</span>' +
+                         '</span>'
+                     );
+                 })
+
+                 $(".no-touch .lang-container .pop-container-L").hover(function() {
+                     var left = $(this).offset().left;
+
+                     var bottom = $("body").height() - $(this).offset().top;
+                     var pos = $(this).index();
+                     var ele = $("body > .lang.link-description").eq(pos);
+
+                     if (userAgent.width() < 768) {
+                         left = (userAgent.width() - ele.width()) / 2;
+                         bottom = bottom + 25;
+                     } else if (userAgent.width() < 1200) {
+                         bottom = bottom + 20;
+                     } else {
+                         left = left + 85;
+                         bottom = bottom - 35;
+                     }
+
+
+                     ele.css({
+                             bottom: bottom + "px",
+                             left: (left - 20) + "px"
+                         })
+                         .addClass("active");
+                 }, function() {
+                     var pos = $(this).index();
+                     $("body > .lang.link-description").eq(pos).removeClass("active");
+                 });
 
 
 
-            }
+             }
          }();
 
 
@@ -636,24 +804,23 @@
                   }
 
                   recursiveHtmlAppender(jsonData.content, $("body > .container"));
-
                   */
 
                  YAML.load('policy3.yaml', function(data) {
-                     
-                     for (var prop in data.content) {                         
-                         $( '[data-yaml = "' + prop + '"]' ).prepend(data.content[prop]);
+
+                     for (var prop in data.content) {
+                         $('[data-yaml = "' + prop + '"]').prepend(data.content[prop]);
                      }
 
-                      for (var prop in data.links) {
-                        $( '[data-link = "' + prop + '"]' ).attr("href", data.links[prop]);
-                      }
+                     for (var prop in data.links) {
+                         $('[data-link = "' + prop + '"]').attr("href", data.links[prop]);
+                     }
                  });
 
              }
          }();
 
-         //Custom marquee for whole policy page  
+         // Custom marquee for whole policy page  
          // I didn't use marqueedirection plugin because it creates a copy of whole marquee content.  
 
          ! function() {
